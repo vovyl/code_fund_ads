@@ -36,3 +36,4 @@ yarn-debug.log*
 .mertrc
 .tool-versions
 session.log
+/db/maxmind
