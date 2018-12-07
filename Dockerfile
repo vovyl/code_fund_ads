@@ -6,6 +6,7 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
+RUN gem install tzinfo-data
 RUN bundle install --binstubs
 
 COPY . .
