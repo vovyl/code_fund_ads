@@ -39,3 +39,4 @@ yarn-debug.log*
 *.dump
 *.log
 legacy
+lib/tasks/impressions.rake
