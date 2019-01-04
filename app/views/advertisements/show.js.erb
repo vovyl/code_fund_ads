@@ -1,19 +1,37 @@
 (function() {
+  function polyfillCustomEvent() {
+    if ( typeof window.CustomEvent === "function" ) return false;
+    function CustomEvent ( event, params ) {
+      params = params || { bubbles: false, cancelable: false, detail: undefined };
+      var evt = document.createEvent( 'CustomEvent' );
+      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+      return evt;
+    }
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent;
+  }
   function embed () {
+    polyfillCustomEvent();
     <% if @advertisement_html -%>
+    var evt;
     try {
       var targetElement = document.getElementById('codefund');
       if (targetElement == null) { targetElement = document.getElementById('<%= @target %>'); }
       targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url %>';
-      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>'; });
+      var impressionUrl = '<%= @impression_url %>&abp=' + window.abp;
+      targetElement.querySelector('img[data-src="impression_url"]').src = impressionUrl;
+      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>' });
+      evt = new CustomEvent('codefund', { detail: { status: 'ok' } });
     } catch (e) {
       console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
+      evt = new CustomEvent('codefund', { detail: { status: 'error' } });
     }
     <% else -%>
       console.log('CodeFund does not have a advertiser for you at this time.');
+      evt = new CustomEvent('codefund', { detail: { status: 'no-advertiser' } });
     <% end -%>
     document.removeEventListener('DOMContentLoaded', embed);
+    window.dispatchEvent(evt);
   };
   (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
 })();

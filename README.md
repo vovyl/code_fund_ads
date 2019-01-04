@@ -46,6 +46,39 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 
 > Setting `async` on the script tag will ensure that CodeFund doens't block anything on the publisher's site.
 
+### Embed Callbacks
+
+You may want to perform a function if the embed function does not return an ad.
+
+To do this, you must create an event listener for the window event `codefund`.
+
+Example:
+
+```html
+<html>
+<head>
+  <script type="text/javascript">
+  window.addEventListener("codefund", function(evt) {
+    if (evt.detail.status !== 'ok') {
+      // Do something else
+      console.log(evt.detail.status);
+    }
+  }, false);
+  </script>
+</head>
+<body>
+  <div id="codefund"><!-- fallback content --></div>
+  <script src="http://codefund.app/properties/1/funder.js" async="async"></script>
+</body>
+</html>
+```
+
+There are 3 possible statuses that will be returned on this event:
+
+- `ok` - the embed was successful
+- `error` - there was an error when embedding the ad (see console)
+- `no-advertiser` - there is not an ad to display
+
 ## API
 
 The API is documented with [Blueprint](https://apiblueprint.org) and is [hosted on Apiary](https://codefund.docs.apiary.io/#).
