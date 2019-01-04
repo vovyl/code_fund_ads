@@ -12,15 +12,14 @@
   }
   function embed () {
     polyfillCustomEvent();
-    <% if @advertisement_html -%>
     var evt;
+    <% if @advertisement_html -%>
     try {
       var targetElement = document.getElementById('codefund');
       if (targetElement == null) { targetElement = document.getElementById('<%= @target %>'); }
       targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-      var impressionUrl = '<%= @impression_url %>&abp=' + window.abp;
-      targetElement.querySelector('img[data-src="impression_url"]').src = impressionUrl;
-      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>' });
+      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>&abp=' + (window.abp === true);
+      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>' });
       evt = new CustomEvent('codefund', { detail: { status: 'ok' } });
     } catch (e) {
       console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
