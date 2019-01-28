@@ -197,6 +197,10 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def flipper_id
+    "User:#{id}"
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

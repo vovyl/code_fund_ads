@@ -405,6 +405,70 @@ ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
 
 
 --
+-- Name: flipper_features; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.flipper_features (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: flipper_features_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.flipper_features_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: flipper_features_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.flipper_features_id_seq OWNED BY public.flipper_features.id;
+
+
+--
+-- Name: flipper_gates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.flipper_gates (
+    id bigint NOT NULL,
+    feature_key character varying NOT NULL,
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: flipper_gates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.flipper_gates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: flipper_gates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.flipper_gates_id_seq OWNED BY public.flipper_gates.id;
+
+
+--
 -- Name: impressions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -880,6 +944,20 @@ ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.event
 
 
 --
+-- Name: flipper_features id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flipper_features ALTER COLUMN id SET DEFAULT nextval('public.flipper_features_id_seq'::regclass);
+
+
+--
+-- Name: flipper_gates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flipper_gates ALTER COLUMN id SET DEFAULT nextval('public.flipper_gates_id_seq'::regclass);
+
+
+--
 -- Name: impressions_default id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1034,6 +1112,22 @@ ALTER TABLE ONLY public.email_templates
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: flipper_features flipper_features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flipper_features
+    ADD CONSTRAINT flipper_features_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: flipper_gates flipper_gates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flipper_gates
+    ADD CONSTRAINT flipper_gates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1512,6 +1606,20 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+
+
+--
+-- Name: index_flipper_features_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_flipper_features_on_key ON public.flipper_features USING btree (key);
+
+
+--
+-- Name: index_flipper_gates_on_feature_key_and_key_and_value; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_flipper_gates_on_feature_key_and_key_and_value ON public.flipper_gates USING btree (feature_key, key, value);
 
 
 --
@@ -2002,6 +2110,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121220544'),
 ('20190123180606'),
 ('20190125221903'),
-('20190125224425');
+('20190125224425'),
+('20190128170016');
 
 

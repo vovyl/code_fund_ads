@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_224425) do
+ActiveRecord::Schema.define(version: 2019_01_28_170016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -157,6 +157,22 @@ ActiveRecord::Schema.define(version: 2019_01_25_224425) do
     t.datetime "updated_at", null: false
     t.index ["eventable_id", "eventable_type"], name: "index_events_on_eventable_id_and_eventable_type"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "flipper_features", force: :cascade do |t|
+    t.string "key", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_flipper_features_on_key", unique: true
+  end
+
+  create_table "flipper_gates", force: :cascade do |t|
+    t.string "feature_key", null: false
+    t.string "key", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
   create_table "impressions", id: false, force: :cascade do |t|
