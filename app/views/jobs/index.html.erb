@@ -21,14 +21,37 @@
     <!-- End Slick Carousel -->
 
     <div class="container position-absolute right-0 bottom-0 left-0 space-top-5 space-bottom-2">
-      <!-- Info Link -->
-      <%= link_to new_job_posting_prospect_path, class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3 d-none d-sm-block" do %>
-        <span class="btn btn-xs btn-soft-white btn-pill font-weight-semi-bold mr-3">Post a job for <%= Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD")).format(no_cents: true) %>/mo</span>
-        <span class="d-sm-block d-sm-inline-block">
-          Don't just wait for the right candidate to search job boards
-        </span>
+      <% if current_user %>
+        <%= link_to new_job_posting_prospect_path, class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3 d-none d-sm-block" do %>
+          <span class="btn btn-xs btn-soft-white btn-pill font-weight-semi-bold mr-3">Post a job for <%= Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD")).format(no_cents: true) %>/mo</span>
+          <span class="d-sm-block d-sm-inline-block">
+            Don't just wait for the right candidate to search job boards
+          </span>
+        <% end %>
+      <% else %>
+        <%= link_to "javascript:;",
+              role: "button",
+              class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3 d-none d-sm-block",
+              aria: {
+                controls: "sidebarContent",
+                haspopup: "true",
+                expanded: "false",
+              },
+              data: {
+                unfold_event: "click",
+                unfold_hide_on_scroll: "false",
+                unfold_target: "#sidebarContent",
+                unfold_type: "css-animation",
+                unfold_animation_in: "fadeInRight",
+                unfold_animation_out: "fadeOutRight",
+                unfold_duration: "500"
+              } do %>
+          <span class="btn btn-xs btn-soft-white btn-pill font-weight-semi-bold mr-3">Post a job for <%= Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD")).format(no_cents: true) %>/mo</span>
+          <span class="d-sm-block d-sm-inline-block">
+            Don't just wait for the right candidate to search job boards
+          </span>
+        <% end %>
       <% end %>
-      <!-- End Info Link -->
 
       <%= render partial: "/job_posting_searches/form" %>
     </div>

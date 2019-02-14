@@ -147,6 +147,7 @@ class User < ApplicationRecord
     :invitable,
     :lockable,
     :recoverable,
+    :registerable,
     :rememberable,
     :timeoutable,
     :trackable,

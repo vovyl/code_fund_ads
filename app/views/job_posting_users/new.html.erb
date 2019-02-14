@@ -1,22 +1,14 @@
-<main id="content" role="main" class="bg-light">
-  <div class="container space-top-3 space-bottom-2">
-    <div class="w-lg-80 mx-lg-auto">
-      <div class="card shadow-sm p-7 job-listing">
-        <%= render partial: "/job_posting_prospects/nav" %>
+<%#= render partial: "/job_posting_users/form" %>
 
-        <% if @user.persisted? %>
-          <h2 class="h5 mt-3">Account Info</h2>
-
-          <p>
-            It looks like you already have a CodeFund account.
-            Please <%= link_to "login", new_user_session_path %> or
-            <%= link_to "change the company email", edit_job_posting_prospect_path(@job_posting) %>
-            on the listing before posting.
-          </p>
-        <% else %>
-          <%= render partial: "/job_posting_users/form" %>
-        <% end %>
-      </div>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Create your free account
+      </h4>
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    </div>
+    <div class="modal-body">
     </div>
   </div>
-</main>
+</div>

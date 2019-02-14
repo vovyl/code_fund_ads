@@ -6,6 +6,8 @@ class SessionsController < Devise::SessionsController
       job_posting = JobPosting.find_by(id: params[:job], session_id: session.id)
       return new_job_posting_purchase_path(job_posting) if job_posting&.pending?
     end
+
+    return params[:redirect_to] if params[:redirect_to].present?
     helpers.default_dashboard_path(user)
   end
 

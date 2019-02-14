@@ -18,14 +18,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
-  <%= tag.body data: { filestack_key: ENV["FILESTACK_API_KEY"] } do %>
+  <%= tag.body data: { filestack_key: ENV["FILESTACK_API_KEY"], current_user_id: current_user&.id } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 
     <%= yield :page_heading %>
     <%= yield %>
     <%= render "/@shared/footer" %>
-    <%= render "/@shared/secondary" if current_user %>
+    <%= render "/@shared/secondary" %>
 
     <!-- Target for dynamically generated modals -->
     <div id="global-modal" class="modal fade"></div>

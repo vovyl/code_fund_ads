@@ -22,7 +22,7 @@ environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
     jQuery: 'jquery',
-    '$': 'jquery',
+    $: 'jquery',
     'window.jQuery': 'jquery',
     Popper: 'popper.js',
     Chartist: 'Chartist',
