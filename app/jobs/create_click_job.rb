@@ -2,6 +2,7 @@ class CreateClickJob < ApplicationJob
   queue_as :click
 
   def perform(impression_id, campaign_id, clicked_at_string)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     campaign = Campaign.find_by(id: campaign_id)
     return unless campaign
 
@@ -18,8 +19,8 @@ class CreateClickJob < ApplicationJob
     return if impression.nil? || impression.clicked?
 
     clicked_at = Time.parse(clicked_at_string)
-    records_saved = Impression.partitioned(campaign.user, 1.day.ago, Date.current).
-      where(id: impression_id).update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
+    records_saved = Impression.partitioned(campaign.user, 1.day.ago, Date.current)
+      .where(id: impression_id).update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
     IncrementClicksCountCacheJob.perform_now impression if records_saved > 0
   end
 end

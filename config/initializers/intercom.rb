@@ -10,7 +10,7 @@ IntercomRails.config do |config|
   # This is required to enable Identity Verification, you can find it on your Setup
   # guide in the "Identity Verification" step.
   #
-  # config.api_secret = "..."
+  config.api_secret = ENV["INTERCOM_SECRET_KEY"]
 
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
@@ -52,10 +52,17 @@ IntercomRails.config do |config|
   # You can provide either a method name which will be sent to the current
   # user object, or a Proc which will be passed the current user.
   #
-  # config.user.custom_data = {
-  #   :plan => Proc.new { |current_user| current_user.plan.name },
-  #   :favorite_color => :favorite_color
-  # }
+  config.user.custom_data = {
+    advertiser: ->(current_user) { current_user.advertiser? },
+    publisher: ->(current_user) { current_user.publisher? },
+    administrator: ->(current_user) { current_user.administrator? },
+    employer: ->(current_user) { current_user.employer? },
+    company_name: :company_name,
+    properties: ->(current_user) { current_user.properties.count },
+    campaigns: ->(current_user) { current_user.campaigns.count },
+    creatives: ->(current_user) { current_user.creatives.count },
+    job_postings: ->(current_user) { current_user.job_postings.count },
+  }
 
   # == Current company method/variable
   # The method/variable that contains the current company for the current user,
@@ -66,7 +73,7 @@ IntercomRails.config do |config|
   #
   # Or if you are using devise you can just use the following config
   #
-  # config.company.current = Proc.new { current_user.company }
+  config.company.current = proc { current_user.organization&.name }
 
   # == Exclude company
   # A Proc that given a company returns true if the company should be excluded

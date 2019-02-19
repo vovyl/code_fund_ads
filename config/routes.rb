@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
+    omniauth_callbacks: "omniauth_callbacks",
   }
 
   resources :jobs, only: [:index]
@@ -119,6 +120,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:index], as: :property_comments
     resources :events, only: [:index], as: :property_events
   end
+
+  get "/invite/:referral_code", to: "referrals#new", as: :invite
+  resources :referrals, only: [:index]
 
   resources :templates
   resources :themes
