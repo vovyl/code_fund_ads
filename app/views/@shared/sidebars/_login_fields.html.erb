@@ -1,0 +1,74 @@
+<div id="login" data-target-group="idForm">
+  <!-- Title -->
+  <header class="text-center mb-7">
+    <h2 class="h4 mb-0">Welcome Back!</h2>
+    <p>Login to manage your account.</p>
+  </header>
+  <!-- End Title -->
+
+  <!-- Form Group -->
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_email">Email</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_email_label">
+            <span class="fas fa-user"></span>
+          </span>
+        </div>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email",
+              required: true,
+              aria: { label: "Email", describedby: "user_email_label" },
+              data: {
+                msg: "Please enter a valid email address.",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+  <!-- End Form Group -->
+
+  <!-- Form Group -->
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_password">Password</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_password_label">
+            <span class="fas fa-lock"></span>
+          </span>
+        </div>
+        <%= f.password_field :password, class: "form-control", placeholder: "Password",
+              required: true,
+              aria: { label: "Password", describedby: "user_password_label" },
+              data: {
+                msg: "Your password is invalid. Please try again.",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+  <!-- End Form Group -->
+
+  <div class="d-flex justify-content-end mb-4">
+    <a class="js-animation-link small link-muted" href="javascript:;" data-target="#forgotPassword" data-link-group="idForm" data-animation-in="slideInUp">Forgot Password?</a>
+  </div>
+
+  <div class="mb-2">
+    <button type="submit" class="btn btn-block btn-sm btn-primary transition-3d-hover">Login</button>
+  </div>
+
+  <div class="text-center mb-4">
+    <span class="small text-muted">Do not have an account?</span>
+    <a class="js-animation-link small" href="javascript:;" data-target="#signup" data-link-group="idForm" data-animation-in="slideInUp">Signup
+    </a>
+  </div>
+
+  <div class="text-center">
+    <span class="u-divider u-divider--xs u-divider--text mb-4">OR</span>
+  </div>
+
+  <%= render "/@shared/sidebars/login_fields" %>
+</div>

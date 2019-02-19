@@ -129,23 +129,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer id="SVGwaveWithDots" class="svg-preloader u-sidebar__footer u-sidebar__footer--account">
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item pr-3">
-          <a class="u-sidebar__footer--account__text" href="https://www.iubenda.com/privacy-policy/47597768/">Privacy</a>
-        </li>
-        <li class="list-inline-item pr-3">
-          <a class="u-sidebar__footer--account__text" href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy">Cookie Policy</a>
-        </li>
-      </ul>
-
-      <!-- SVG Background Shape -->
-      <div class="position-absolute right-0 bottom-0 left-0">
-        <%= image_tag "svg/components/wave-bottom-with-dots.svg", class: "js-svg-injector", data: { parent: "#SVGwaveWithDots" } %>
-      </div>
-      <!-- End SVG Background Shape -->
-    </footer>
-    <!-- End Footer -->
+    <%= render "/@shared/sidebars/footer" %>
   </div>
 </div>

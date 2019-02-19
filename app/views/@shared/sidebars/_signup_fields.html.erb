@@ -1,0 +1,111 @@
+<div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
+  <!-- Title -->
+  <header class="text-center mb-7">
+    <h2 class="h4 mb-0">Welcome to CodeFund</h2>
+    <p>Fill out the form to get started.</p>
+  </header>
+  <!-- End Title -->
+  
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_first_name">First Name</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_first_name_label">
+            <span class="fas fa-person"></span>
+          </span>
+        </div>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "First Name",
+              required: true,
+              aria: { label: "first_name", describedby: "user_first_name_label" },
+              data: {
+                msg: "Please enter your first name",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Group -->
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_email">Email</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_email_label">
+            <span class="fas fa-user"></span>
+          </span>
+        </div>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email",
+              required: true,
+              aria: { label: "Email", describedby: "user_email_label" },
+              data: {
+                msg: "Please enter a valid email address.",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+  <!-- End Input -->
+
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_password">Password</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_password_label">
+            <span class="fas fa-lock"></span>
+          </span>
+        </div>
+        <%= f.password_field :password, class: "form-control", placeholder: "Password",
+              required: true,
+              aria: { label: "Password", describedby: "user_password_label" },
+              data: {
+                msg: "Your password is invalid. Please try again.",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="js-form-message js-focus-state">
+      <label class="sr-only" for="user_company_name">Company</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="user_company_name_label">
+            <span class="fas fa-building"></span>
+          </span>
+        </div>
+        <%= f.text_field :company_name, class: "form-control", placeholder: "Company",
+              required: true,
+              aria: { label: "company_name", describedby: "user_company_name_label" },
+              data: {
+                msg: "Please enter your company name",
+                error_class: "u-has-error",
+                success_class: "u-has-success"
+              } %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mb-2">
+    <button type="submit" class="btn btn-block btn-sm btn-primary transition-3d-hover">Get Started</button>
+  </div>
+
+  <div class="text-center mb-4">
+    <span class="small text-muted">Already have an account?</span>
+    <a class="js-animation-link small" href="javascript:;" data-target="#login" data-link-group="idForm" data-animation-in="slideInUp">Login
+    </a>
+  </div>
+
+  <div class="text-center">
+    <span class="u-divider u-divider--xs u-divider--text mb-4">OR</span>
+  </div>
+
+  <%= render "/@shared/sidebars/login_fields" %>
+</div>

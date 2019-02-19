@@ -63,23 +63,23 @@
       <button type="submit" class="btn btn-primary btn-block transition-3d-hover" tabindex="4">Log in</button>
 
       <div class="text-center mb-3 mt-3">
-        <span class="u-divider u-divider--xs u-divider--text">or</span>
+        <span class="u-divider u-divider--xs u-divider--text">OR</span>
       </div>
 
-      <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/google-logo.svg", style: "position: absolute; left: 18px; top: 14px;" %>
-        Log in with Google
-      <% end %>
-
-      <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
-        Log in with GitHub
-      <% end %>
-
-      <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/In-2C-66px-TM.png", style: "position: absolute; left: 18px; top: 14px; width: 22px;" %>
-        Log in with LinkedIn
-      <% end %>
+      <div class="d-flex">
+        <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-block btn-sm btn-soft-google transition-3d-hover ml-1 mt-0" do %>
+          <span class="fab fa-google mr-1"></span>
+          Google
+        <% end %>
+        <%= link_to user_github_omniauth_authorize_path, class: "btn btn-block btn-sm btn-soft-github transition-3d-hover ml-1 mt-0" do %>
+          <span class="fab fa-github mr-1"></span>
+          GitHub
+        <% end %>
+        <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-block btn-sm btn-soft-linkedin transition-3d-hover ml-1 mt-0" do %>
+          <span class="fab fa-linkedin mr-1"></span>
+          LinkedIn
+        <% end %>
+      </div>
     <% end %>
   </div>
   <!-- End Login Form -->
