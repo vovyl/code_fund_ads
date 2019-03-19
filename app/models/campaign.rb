@@ -213,7 +213,7 @@ class Campaign < ApplicationRecord
     if start_date.nil?
       return Property
           .where(id: DailySummary.where(scoped_by_type: "Property").distinct(:scoped_by_id).select(:scoped_by_id))
-          .or(Property.where(id: impressions.distinct(:property_id).select(:property_id)))
+          .or(Property.where(id: impressions.on(Date.current).distinct(:property_id).select(:property_id)))
     end
     include_today = start_date >= Date.current || end_date && end_date > Date.current
     relation = Property.where(id: DailySummary.between(start_date, end_date).where(scoped_by_type: "Property").distinct(:scoped_by_id).select(:scoped_by_id))

@@ -132,9 +132,16 @@ class Property < ApplicationRecord
 
   # Returns a relation for campaigns that have been rendered on this property
   def displayed_campaigns(start_date = nil, end_date = nil)
-    subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
-    subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
-    Campaign.where id: subquery
+    if start_date.nil?
+      return Campaign
+          .where(id: DailySummary.where(scoped_by_type: "Campaign").distinct(:scoped_by_id).select(:scoped_by_id))
+          .or(Campaign.where(id: impressions.on(Date.current).distinct(:campaign_id).select(:campaign_id)))
+    end
+
+    include_today = start_date >= Date.current || end_date && end_date > Date.current
+    relation = Campaign.where(id: DailySummary.between(start_date, end_date).where(scoped_by_type: "Campaign").distinct(:scoped_by_id).select(:scoped_by_id))
+    relation = relation.or(Campaign.where(id: impressions.on(Date.current).distinct(:campaign_id).select(:campaign_id))) if include_today
+    relation
   end
 
   # Returns a relation for campaigns that have been clicked on this property
