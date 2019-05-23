@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: "omniauth_callbacks",
   }
 
+  resources :articles, only: [:index, :show], path: "/blog", param: :slug
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
