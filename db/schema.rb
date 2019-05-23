@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_22_214219) do
+ActiveRecord::Schema.define(version: 2019_05_23_203336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_214219) do
     t.date "displayed_at_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "unique_ip_addresses_count", default: 0, null: false
     t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
     t.index ["impressionable_type", "impressionable_id", "displayed_at_date"], name: "index_daily_summaries_unscoped_uniqueness", unique: true, where: "((scoped_by_type IS NULL) AND (scoped_by_id IS NULL))"
     t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "index_daily_summaries_uniqueness", unique: true
